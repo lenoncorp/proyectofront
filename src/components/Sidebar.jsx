@@ -7,12 +7,14 @@ const SidebarLinks = () => {
   return (
     <ul className='mt-12'>
       <SidebarRoute to='' title='Inicio' icon='fas fa-home' />
-      <PrivateComponent roleList={['ADMINISTRADOR']}>
+      <PrivateComponent roleList={['ADMINISTRADOR', 'LIDER']}>
       <SidebarRoute to='/usuarios' title='Usuarios' icon='fas fa-users' />
       </PrivateComponent>
-      <SidebarRoute to='/page2' title='Pagina2' icon='fas fa-smile-wink' />
-      <SidebarRoute to='/category1' title='Catego 1' icon='fab fa-amazon' />
-      <SidebarRoute to='/category1/page1' title='Test' icon='fas fa-car' />
+      <PrivateComponent roleList={['ADMINISTRADOR', 'LIDER']}>
+      <SidebarRoute to='/proyectos' title='Proyectos' icon='fas fa-project-diagram' />
+      </PrivateComponent>
+      <SidebarRoute to='/inscripciones' title='Inscripciones' icon='fas fa-clipboard-list' />
+      <SidebarRoute to='/avances' title='Avances' icon='fas fa-arrow-alt-circle-right' />
       <Logout />
     </ul>
   );
@@ -26,7 +28,7 @@ const Logout = () => {
   };
   return (
     <li onClick={() => deleteToken()}>
-      <NavLink to='/auth/login' className='sidebar-route text-red-700'>
+      <NavLink to='/auth/login' className='sidebar-route text-green-900'>
         <div className='flex items-center' >
           <i className='fas fa-sign-out-alt' />
           <span className='text-sm  ml-2'>Cerrar Sesión</span>
