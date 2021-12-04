@@ -20,5 +20,4 @@ const Enum_TipoObjetivo = {
     ESPECIFICO: 'Específico',
 };
 
-
 export { Enum_Rol, Enum_EstadoUsuario, Enum_EstadoProyecto, Enum_TipoObjetivo };
