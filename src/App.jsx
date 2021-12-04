@@ -18,7 +18,7 @@ import IndexProyectos from 'pages/proyectos';
 import IndexInscripciones from 'pages/inscripciones/Index';
 import Page1 from 'pages/inscripciones/Page1';
 import IndexAvances from 'pages/avances';
-
+import NuevoProyecto from 'pages/proyectos/NuevoProyecto';
 // import PrivateRoute from 'components/PrivateRoute';
 
 const httpLink = createHttpLink({
@@ -78,8 +78,9 @@ function App() {
             <Route path='/' element={<PrivateLayout />}>
                 <Route path='' element={<Index />} />
                 <Route path='usuarios/' element={<IndexUsuarios />} />
-                <Route path='proyectos/' element={<IndexProyectos />} />
                 <Route path='usuarios/editar/:_id' element={<EditarUsuario />} />
+                <Route path='proyectos/' element={<IndexProyectos />} />
+                <Route path='/proyectos/nuevo' element={<NuevoProyecto />} />
                 <Route path='inscripciones/' element={<IndexInscripciones />} />
                 <Route path='inscripciones/page1' element={<Page1 />} />
                 <Route path='avances/' element={<IndexAvances />} />
