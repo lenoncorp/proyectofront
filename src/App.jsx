@@ -16,7 +16,6 @@ import { AuthContext } from 'context/authContext';
 import jwt_decode from 'jwt-decode';
 import IndexProyectos from 'pages/proyectos';
 import IndexInscripciones from 'pages/inscripciones/Index';
-import Page1 from 'pages/inscripciones/Page1';
 import IndexAvances from 'pages/avances';
 import NuevoProyecto from 'pages/proyectos/NuevoProyecto';
 // import PrivateRoute from 'components/PrivateRoute';
@@ -82,7 +81,6 @@ function App() {
                 <Route path='proyectos/' element={<IndexProyectos />} />
                 <Route path='/proyectos/nuevo' element={<NuevoProyecto />} />
                 <Route path='inscripciones/' element={<IndexInscripciones />} />
-                <Route path='inscripciones/page1' element={<Page1 />} />
                 <Route path='avances/' element={<IndexAvances />} />
               </Route>
               <Route path='/auth' element={<AuthLayout />}>
