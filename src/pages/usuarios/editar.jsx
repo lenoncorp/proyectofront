@@ -9,6 +9,7 @@ import { toast } from 'react-toastify';
 import { EDITAR_USUARIO } from 'graphql/usuarios/mutations';
 import DropDown from 'components/Dropdown';
 import { Enum_EstadoUsuario } from 'utils/enums';
+import PrivateComponent from 'components/PrivateComponent';
 
 const EditarUsuario = () => {
     const { form, formData, updateFormData } = useFormData(null);
@@ -64,6 +65,7 @@ const EditarUsuario = () => {
                 ref={form}
                 className='flex flex-col items-center justify-center'
             >
+                <PrivateComponent roleList={['ADMINISTRADOR', 'ESTUDIANTE']}>
                 <Input
                     label='Nombre de la persona:'
                     type='text'
@@ -71,6 +73,8 @@ const EditarUsuario = () => {
                     defaultValue={queryData.Usuario.nombre}
                     required={true}
                 />
+                </PrivateComponent>
+                <PrivateComponent roleList={['ADMINISTRADOR', 'ESTUDIANTE']}>
                 <Input
                     label='Apellido de la persona:'
                     type='text'
@@ -78,6 +82,8 @@ const EditarUsuario = () => {
                     defaultValue={queryData.Usuario.apellido}
                     required={true}
                 />
+                </PrivateComponent>
+                <PrivateComponent roleList={['ADMINISTRADOR', 'ESTUDIANTE']}>
                 <Input
                     label='Correo de la persona:'
                     type='email'
@@ -85,6 +91,8 @@ const EditarUsuario = () => {
                     defaultValue={queryData.Usuario.correo}
                     required={true}
                 />
+                </PrivateComponent>
+                <PrivateComponent roleList={['ADMINISTRADOR', 'ESTUDIANTE']}>
                 <Input
                     label='Identificación de la persona:'
                     type='text'
@@ -92,6 +100,7 @@ const EditarUsuario = () => {
                     defaultValue={queryData.Usuario.identificacion}
                     required={true}
                 />
+                </PrivateComponent>
                 <DropDown
                     label='Estado de la persona:'
                     name='estado'
