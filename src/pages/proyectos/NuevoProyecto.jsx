@@ -11,7 +11,7 @@ import { nanoid } from 'nanoid';
 import { ObjContext } from 'context/objContext';
 import { useObj } from 'context/objContext';
 import { CREAR_PROYECTO } from 'graphql/proyectos/mutations';
-
+//comentario
 const NuevoProyecto = () => {
     const { form, formData, updateFormData } = useFormData();
     const [listaUsuarios, setListaUsuarios] = useState({});
