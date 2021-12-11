@@ -65,14 +65,14 @@ const Inscripcion = ({ inscripcion, refetch }) => {
 
   useEffect(() => {
     if (data) {
-      toast.success('Inscripcion aprobada con exito');
+      toast.success('Inscripción aprobada con éxito');
       refetch();
     }
   }, [data]);
 
   useEffect(() => {
     if (error) {
-      toast.error('Error aprobando la inscripcion');
+      toast.error('Error aprobando la inscripción');
     }
   }, [error]);
 
@@ -94,7 +94,7 @@ const Inscripcion = ({ inscripcion, refetch }) => {
           onClick={() => {
             cambiarEstadoInscripcion();
           }}
-          text='Aprobar Inscripcion'
+          text='Aprobar Inscripción'
           loading={loading}
           disabled={false}
         />

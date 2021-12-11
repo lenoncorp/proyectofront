@@ -163,12 +163,12 @@ const InscripcionProyecto = ({ idProyecto, estado, inscripciones }) => {
     useEffect(() => {
         if (data) {
             console.log(data);
-            toast.success('inscripcion creada con exito');
+            toast.success('Inscripción creada con éxito');
         }
     }, [data]);
 
     const confirmarInscripcion = () => {
-        console.log("funcion ejecutada");
+        console.log("Función ejecutada");
         crearInscripcion({ variables: { proyecto: idProyecto, estudiante: userData._id } });
     };
 
