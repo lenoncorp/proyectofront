@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useMutation, useQuery } from '@apollo/client';
 import { PROYECTOS } from 'graphql/proyectos/queries';
 import DropDown from 'components/Dropdown';
-import { Dialog } from '@mui/material';
+import { Button, Dialog } from '@mui/material';
 import { Enum_EstadoProyecto } from 'utils/enums';
 import ButtonLoading from 'components/ButtonLoading';
 import { EDITAR_PROYECTO } from 'graphql/proyectos/mutations';
@@ -168,6 +168,7 @@ const InscripcionProyecto = ({ idProyecto, estado, inscripciones }) => {
     }, [data]);
 
     const confirmarInscripcion = () => {
+        console.log("funcion ejecutada");
         crearInscripcion({ variables: { proyecto: idProyecto, estudiante: userData._id } });
     };
 
@@ -177,7 +178,7 @@ const InscripcionProyecto = ({ idProyecto, estado, inscripciones }) => {
                 <span>Ya estas inscrito en este proyecto y el estado es {estadoInscripcion}</span>
             ) : (
                 <ButtonLoading
-                    onClick={() => confirmarInscripcion()}
+                    onClick={() => confirmarInscripcion()} 
                     disabled={estado === 'INACTIVO'}
                     loading={loading}
                     text='Inscribirme en este proyecto'
