@@ -21,7 +21,7 @@ const Enum_TipoObjetivo = {
 };
 
 const Enum_FaseProyecto = {
-    INICIADO: 'Iniciado',
+    //INICIADO: 'Iniciado',
     DESARROLLO:  'Desarrollo',
     TERMINADO: 'Terminado',
     NULO: '',
