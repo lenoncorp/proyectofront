@@ -3,7 +3,7 @@ import { useMutation, useQuery } from '@apollo/client';
 import { PROYECTOS } from 'graphql/proyectos/queries';
 import DropDown from 'components/Dropdown';
 import { Button, Dialog } from '@mui/material';
-import { Enum_EstadoProyecto } from 'utils/enums';
+import { Enum_EstadoProyecto, Enum_FaseProyecto } from 'utils/enums';
 import ButtonLoading from 'components/ButtonLoading';
 import { EDITAR_PROYECTO } from 'graphql/proyectos/mutations';
 import useFormData from 'hooks/useFormData';
@@ -54,24 +54,47 @@ const IndexProyectos = () => {
 
 const AccordionProyecto = ({ proyecto }) => {
     const [showDialog, setShowDialog] = useState(false);
+    const [showDialogFase,setShowDialogFase] = useState(false);
     return (
         <>
             <AccordionStyled>
                 <AccordionSummaryStyled expandIcon={<i className='fas fa-chevron-down' />}>
                     <div className='flex w-full justify-between'>
                         <div className='uppercase font-bold text-gray-100 '>
-                            {proyecto.nombre} - {proyecto.estado}
+                            {proyecto.nombre} - {proyecto.estado} - {proyecto.fase}
                         </div>
                     </div>
                 </AccordionSummaryStyled>
                 <AccordionDetailsStyled>
                     <PrivateComponent roleList={['ADMINISTRADOR']}>
-                        <i
-                            className='mx-4 fas fa-pen text-yellow-600 hover:text-yellow-400'
-                            onClick={() => {
-                                setShowDialog(true);
-                            }}
-                        />
+                        {/* Cambia estado proyecto */}
+                        <div className='mx-5 my-4 bg-yellow-50 p-5 rounded-lg flex justify-center w-80'>
+                            <div className='text-lg font-bold'>
+                                <div> Editar estado del proyecto
+                                    <i
+                                        className='mx-4 fas fa-pen text-yellow-600 hover:text-yellow-400'
+                                        onClick={() => {
+                                            setShowDialog(true);
+                                        }}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        {/* Cambia fase proyecto */}
+                        <div className='mx-5 my-4 bg-pink-50 p-5 rounded-lg flex justify-center w-80'>
+                            <div className='text-lg font-bold'>
+                                <div> Editar fase del proyecto
+                                    <i 
+                                        className='mx-4 fas fa-pen text-pink-600 hover:text-pink-400'
+                                        onClick={() => {
+                                            setShowDialogFase(true);
+                                        }}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        
+
                     </PrivateComponent>
                     <PrivateComponent roleList={['ESTUDIANTE']}>
                         <InscripcionProyecto
@@ -96,6 +119,15 @@ const AccordionProyecto = ({ proyecto }) => {
             >
                 <FormEditProyecto _id={proyecto._id} />
             </Dialog>
+            {/* cambiar fase proyecto */}
+            <Dialog
+                open={showDialogFase}
+                onClose={() => {
+                    setShowDialogFase(false);
+                }}
+            >
+                <FormEditFaseProyecto _id={proyecto._id} />
+            </Dialog>
         </>
     );
 };
@@ -114,6 +146,7 @@ const FormEditProyecto = ({ _id }) => {
         });
     };
 
+    //cambio estado proyecto
     useEffect(() => {
         console.log('data mutation', dataMutation);
     }, [dataMutation]);
@@ -132,6 +165,48 @@ const FormEditProyecto = ({ _id }) => {
             </form>
         </div>
     );
+    
+};
+
+
+
+
+
+const FormEditFaseProyecto = ({ _id }) => {
+    const { form, formData, updateFormData } = useFormData();
+    const [editarProyecto, { data: dataMutation, loading, error }] = useMutation(EDITAR_PROYECTO);
+
+    const submitFormFase = (e) => {
+        e.preventDefault();
+        editarProyecto({
+            variables: {
+                _id,
+                campos: formData,
+            },
+        });
+    };
+
+    //cambio fase proyecto
+
+    useEffect(() => {
+        console.log('data mutation', dataMutation);
+    }, [dataMutation]);
+
+    return (
+        <div className='p-4'>
+            <h1 className='font-bold'>Modificar Fase del Proyecto</h1>
+            <form
+                ref={form}
+                onChange={updateFormData}
+                onSubmit={submitFormFase}
+                className='flex flex-col items-center'
+            >
+                <DropDown label='Fase del Proyecto' name='fase' options={Enum_FaseProyecto} />
+                <ButtonLoading disabled={false} loading={loading} text='Confirmar' />
+            </form>
+        </div>
+    );
+
 };
 
 const Objetivo = ({ tipo, descripcion }) => {
