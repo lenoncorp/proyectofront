@@ -1,25 +1,25 @@
 import React, { useEffect } from 'react';
 import { useQuery } from '@apollo/client';
-import { GET_USUARIOS } from 'graphql/usuarios/queries';
 import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 import { Enum_Rol, Enum_EstadoUsuario } from 'utils/enums';
 import PrivateRoute from 'components/PrivateRoute';
-const IndexUsuarios = () => {
-    const { data, error, loading } = useQuery(GET_USUARIOS);
+import { GET_USUARIO_PERFIL } from 'graphql/usuarios/queries';
+const IndexPerfil = () => {
+    const { data, error, loading } = useQuery(GET_USUARIO_PERFIL);
 
     useEffect(() => {
         if (error) {
-            toast.error('Error consultando los usuarios');
+            toast.error('Error consultando el perfil');
         }
     }, [error]);
 
     if (loading) return <div>Cargando....</div>;
 
     return (
-        <PrivateRoute roleList={['ADMINISTRADOR', 'LIDER']}>
+        <PrivateRoute roleList={['ESTUDIANTE', 'LIDER', 'ADMINISTRADOR']}>
         <div>
-        <h1 className='m-4 text-3xl text-gray-800 font-bold text-center'>Datos Usuarios</h1>
+        <h1 className='m-4 text-3xl text-gray-800 font-bold text-center'>Datos Perfil</h1>
             <table className='tabla'>
                 <thead>
                     <tr>
@@ -45,7 +45,7 @@ const IndexUsuarios = () => {
                                     <td>{Enum_Rol[u.rol]}</td>
                                     <td>{Enum_EstadoUsuario[u.estado]}</td>
                                     <td>
-                                        <Link to={`/usuarios/editar/${u._id}`}>
+                                        <Link to={`/perfil/editar/${u._id}`}>
                                             <i className='fas fa-pen text-yellow-600 hover:text-yellow-400 cursor-pointer' />
                                         </Link>
                                     </td>
@@ -63,5 +63,4 @@ const IndexUsuarios = () => {
     );
 };
 
-export default IndexUsuarios;
-
+export default IndexPerfil;

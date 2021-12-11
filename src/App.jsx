@@ -18,6 +18,8 @@ import IndexProyectos from 'pages/proyectos';
 import IndexInscripciones from 'pages/inscripciones/Index';
 import IndexAvances from 'pages/avances';
 import NuevoProyecto from 'pages/proyectos/NuevoProyecto';
+import IndexPerfil from 'pages/perfil';
+import EditarPerfil from 'pages/perfil/editar';
 // import PrivateRoute from 'components/PrivateRoute';
 
 const httpLink = createHttpLink({
@@ -76,6 +78,8 @@ function App() {
             <Routes>
             <Route path='/' element={<PrivateLayout />}>
                 <Route path='' element={<Index />} />
+                <Route path='perfil/' element={<IndexPerfil />} />
+                <Route path='perfil/editar/:_id' element={<EditarPerfil />} />
                 <Route path='usuarios/' element={<IndexUsuarios />} />
                 <Route path='usuarios/editar/:_id' element={<EditarUsuario />} />
                 <Route path='proyectos/' element={<IndexProyectos />} />

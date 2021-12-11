@@ -14,6 +14,20 @@ query Query($filtro: FiltroUsuarios) {
     }
 `;
 
+const GET_USUARIO_PERFIL = gql`
+query UsuarioPerfil($filtro: FiltroUsuarios) {
+    UsuarioPerfil(filtro: $filtro) {
+            _id
+            nombre
+            apellido
+            correo
+            estado
+            identificacion
+            rol
+        }
+    }
+`;
+
 const GET_USUARIO = gql`
     query Usuario($_id: String!) {
         Usuario(_id: $_id) {
@@ -28,4 +42,4 @@ const GET_USUARIO = gql`
     }
 `;
 
-export { GET_USUARIOS, GET_USUARIO };
+export { GET_USUARIOS, GET_USUARIO, GET_USUARIO_PERFIL };
