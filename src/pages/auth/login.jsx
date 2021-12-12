@@ -26,6 +26,8 @@ const Login = () => {
             if (dataMutation.login.token) {
                 setToken(dataMutation.login.token);
                 navigate('/');
+            }else{
+                alert ('Este usuario no está registrado')
             }
             
         }

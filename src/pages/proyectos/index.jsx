@@ -81,7 +81,9 @@ const AccordionProyecto = ({ proyecto }) => {
                                 </div>
                             </div>
                         </div>
-                        {/* Cambia fase proyecto */}
+
+                        {/* Cambia fase proyecto con operador ternario */}
+                        {proyecto.fase === 'DESARROLLO' ?
                         <div className='mx-5 my-4 bg-pink-50 p-5 rounded-lg flex justify-center w-80'>
                             <div className='text-lg font-bold'>
                                 <div> Editar fase del proyecto
@@ -93,9 +95,10 @@ const AccordionProyecto = ({ proyecto }) => {
                                     />
                                 </div>
                             </div>
-                        </div>
+                        </div>: <> </> }
+
                         {/* Cambia presupuesto */}
-                        <div className='mx-5 my-4 bg-violet-50 p-5 rounded-lg flex justify-center w-80'>
+                        <div className='mx-5 my-4 bg-purple-50 p-5 rounded-lg flex justify-center w-80'>
                             <div className='text-lg font-bold'>
                                 <div> Presupuesto
                                     <i 
@@ -126,11 +129,11 @@ const AccordionProyecto = ({ proyecto }) => {
                         </div> */}
 
                         {/* Cambia presupuesto */}
-                        <div className='mx-5 my-4 bg-gray-50 p-5 rounded-lg flex justify-center w-80'>
+                        <div className='mx-5 my-4 bg-purple-50 p-5 rounded-lg flex justify-center w-80'>
                             <div className='text-lg font-bold'>
                                 <div> Presupuesto
                                     <i 
-                                        className='mx-4 fas fa-pen text-gray-600 hover:text-gray-400'
+                                        className='mx-4 fas fa-pen text-purple-600 hover:text-purple-400'
                                         onClick={() => {
                                             setShowDialogPpto(true);
                                         }}
@@ -141,11 +144,15 @@ const AccordionProyecto = ({ proyecto }) => {
                         
                     </PrivateComponent>
                     <PrivateComponent roleList={['ESTUDIANTE']}>
-                        <InscripcionProyecto
-                            idProyecto={proyecto._id}
-                            estado={proyecto.estado}
-                            inscripciones={proyecto.inscripciones}
-                        />
+                    {proyecto.estado === 'ACTIVO' ?
+                        <div>
+                            <InscripcionProyecto
+                                idProyecto={proyecto._id}
+                                estado={proyecto.estado}
+                                inscripciones={proyecto.inscripciones}
+                            />
+
+                        </div> : <> </> }
                     </PrivateComponent>
                     <div>Liderado Por: {proyecto.lider.correo}</div>
                     <div className='flex'>
