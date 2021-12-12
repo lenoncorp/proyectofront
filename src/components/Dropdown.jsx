@@ -16,6 +16,7 @@ const DropDown = ({ label, name, defaultValue = '', required, options, float, nu
                 className='input'
                 value={selectedValue}
                 onChange={(e) => setSelectedValue(e.target.value)}
+                float = {float}
             >
                 {optionsSelect.map((o) => {
                     return (

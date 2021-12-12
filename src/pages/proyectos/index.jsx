@@ -99,7 +99,7 @@ const AccordionProyecto = ({ proyecto }) => {
                             <div className='text-lg font-bold'>
                                 <div> Presupuesto
                                     <i 
-                                        className='mx-4 fas fa-pen text-violet-600 hover:text-violet-400'
+                                        className='mx-4 fas fa-pen text-purple-600 hover:text-purple-400'
                                         onClick={() => {
                                             setShowDialogPpto(true);
                                         }}

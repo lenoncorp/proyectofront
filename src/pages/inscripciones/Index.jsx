@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useMutation, useQuery } from '@apollo/client';
 import PrivateRoute from 'components/PrivateRoute';
 import { GET_INSCRIPCIONES } from 'graphql/inscripciones/queries';
-import { APROBAR_INSCRIPCION } from 'graphql/inscripciones/mutaciones';
+import { APROBAR_INSCRIPCION, RECHAZAR_INSCRIPCION} from 'graphql/inscripciones/mutaciones';
 import ButtonLoading from 'components/ButtonLoading';
 import { toast } from 'react-toastify';
 import {
@@ -55,6 +55,12 @@ const AccordionInscripcion = ({ data, titulo, refetch = () => {} }) => {
               return <Inscripcion inscripcion={inscripcion} refetch={refetch} />;
             })}
         </div>
+        <div className='flex'>
+          {data &&
+            data.map((inscripcion) => {
+              return <InscripcionRechazada inscripcion={inscripcion} refetch={refetch} />;
+            })}
+        </div>
       </AccordionDetailsStyled>
     </AccordionStyled>
   );
@@ -62,7 +68,6 @@ const AccordionInscripcion = ({ data, titulo, refetch = () => {} }) => {
 
 const Inscripcion = ({ inscripcion, refetch }) => {
   const [aprobarInscripcion, { data, loading, error }] = useMutation(APROBAR_INSCRIPCION);
-
   useEffect(() => {
     if (data) {
       toast.success('Inscripción aprobada con éxito');
@@ -83,7 +88,6 @@ const Inscripcion = ({ inscripcion, refetch }) => {
       },
     });
   };
-
   return (
     <div className='bg-gray-50 text-gray-900 flex flex-col p-6 m-2 rounded-lg shadow-xl'>
       <span>{inscripcion.proyecto.nombre}</span>
@@ -98,6 +102,45 @@ const Inscripcion = ({ inscripcion, refetch }) => {
           loading={loading}
           disabled={false}
         />
+      )}
+    </div>
+  );
+};
+
+const InscripcionRechazada = ({ inscripcion, refetch }) => {
+  const [rechazarInscripcion, { data, loading, error }] = useMutation(RECHAZAR_INSCRIPCION);
+  useEffect(() => {
+    if (data) {
+      toast.success('Inscripción rechazada');
+      refetch();
+    }
+  }, [data]);
+
+  useEffect(() => {
+    if (error) {
+      toast.error('Error actualizando la inscripción');
+    }
+  }, [error]);
+
+  const estadoRechazadoInscripcion = () => {
+    rechazarInscripcion({
+      variables: {
+        rechazarInscripcionId: inscripcion._id,
+      },
+    });
+  };
+  return (
+    <div className='bg-gray-50 text-gray-900 flex flex-col p-6 m-2 rounded-lg shadow-xl'>
+      {inscripcion.estado === 'PENDIENTE' && (
+        <ButtonLoading
+          onClick={() => {
+            estadoRechazadoInscripcion();
+          }}
+          text='Rechazar Inscripción'
+          loading={loading}
+          disabled={false}
+        />
+        
       )}
     </div>
   );
