@@ -23,7 +23,7 @@ const Login = () => {
 
     useEffect(() => {
         if (dataMutation) {
-            if (dataMutation.login.token) {
+            if (dataMutation.login && dataMutation.login.token) {
                 setToken(dataMutation.login.token);
                 navigate('/');
             }else{
