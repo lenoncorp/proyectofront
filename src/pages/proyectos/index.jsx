@@ -35,7 +35,7 @@ const IndexProyectos = () => {
                 <div className='flex w-full items-center justify-center'>
                     <h1 className='text-2xl font-bold text-gray-900'>Lista de Proyectos</h1>
                 </div>
-                <PrivateComponent roleList={['ADMINISTRADOR', 'LIDER']}>
+                <PrivateComponent roleList={['LIDER']}>
                     <div className='my-2 self-end'>
                         <button className='bg-green-900 text-gray-50 p-2 rounded-lg shadow-lg hover:bg-indigo-400'>
                             <Link to='/proyectos/nuevo'>Crear nuevo proyecto</Link>
@@ -55,6 +55,7 @@ const IndexProyectos = () => {
 const AccordionProyecto = ({ proyecto }) => {
     const [showDialog, setShowDialog] = useState(false);
     const [showDialogFase,setShowDialogFase] = useState(false);
+    const [showDialogPpto,setShowDialogPpto] = useState(false);
     return (
         <>
             <AccordionStyled>
@@ -93,8 +94,51 @@ const AccordionProyecto = ({ proyecto }) => {
                                 </div>
                             </div>
                         </div>
+                        {/* Cambia presupuesto */}
+                        <div className='mx-5 my-4 bg-violet-50 p-5 rounded-lg flex justify-center w-80'>
+                            <div className='text-lg font-bold'>
+                                <div> Presupuesto
+                                    <i 
+                                        className='mx-4 fas fa-pen text-violet-600 hover:text-violet-400'
+                                        onClick={() => {
+                                            setShowDialogPpto(true);
+                                        }}
+                                    />
+                                </div>
+                            </div>
+                        </div>
                         
 
+                    </PrivateComponent>
+                    <PrivateComponent roleList={['LIDER']}>
+                        {/* Cambia nombre proyecto */}
+                        {/* <div className='mx-5 my-4 bg-yellow-50 p-5 rounded-lg flex justify-center w-80'>
+                            <div className='text-lg font-bold'>
+                                <div> Editar estado del proyecto
+                                    <i
+                                        className='mx-4 fas fa-pen text-yellow-600 hover:text-yellow-400'
+                                        onClick={() => {
+                                            setShowDialog(true);
+                                        }}
+                                    />
+                                </div>
+                            </div>
+                        </div> */}
+
+                        {/* Cambia presupuesto */}
+                        <div className='mx-5 my-4 bg-gray-50 p-5 rounded-lg flex justify-center w-80'>
+                            <div className='text-lg font-bold'>
+                                <div> Presupuesto
+                                    <i 
+                                        className='mx-4 fas fa-pen text-gray-600 hover:text-gray-400'
+                                        onClick={() => {
+                                            setShowDialogPpto(true);
+                                        }}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        
                     </PrivateComponent>
                     <PrivateComponent roleList={['ESTUDIANTE']}>
                         <InscripcionProyecto
@@ -127,6 +171,15 @@ const AccordionProyecto = ({ proyecto }) => {
                 }}
             >
                 <FormEditFaseProyecto _id={proyecto._id} />
+            </Dialog>
+            {/* cambiar presupuesto*/}
+            <Dialog
+                open={showDialogPpto}
+                onClose={() => {
+                    setShowDialogPpto(false);
+                }}
+            >
+                <FormEditPptoProyecto _id={proyecto._id} />
             </Dialog>
         </>
     );
@@ -168,10 +221,6 @@ const FormEditProyecto = ({ _id }) => {
     
 };
 
-
-
-
-
 const FormEditFaseProyecto = ({ _id }) => {
     const { form, formData, updateFormData } = useFormData();
     const [editarProyecto, { data: dataMutation, loading, error }] = useMutation(EDITAR_PROYECTO);
@@ -208,6 +257,44 @@ const FormEditFaseProyecto = ({ _id }) => {
     );
 
 };
+
+const FormEditPptoProyecto = ({ _id }) => {
+    const { form, formData, updateFormData } = useFormData();
+    const [editarProyecto, { data: dataMutation, loading, error }] = useMutation(EDITAR_PROYECTO);
+
+    const submitFormPpto = (e) => {
+        e.preventDefault();
+        editarProyecto({
+            variables: {
+                _id,
+                campos: formData,
+            },
+        });
+    };
+
+    //cambio ppto proyecto
+
+    useEffect(() => {
+        console.log('data mutation', dataMutation);
+    }, [dataMutation]);
+
+    return (
+        <div className='p-4'>
+            <h1 className='font-bold'>Modificar Presupuesto del Proyecto</h1>
+            <form
+                ref={form}
+                onChange={updateFormData}
+                onSubmit={submitFormPpto}
+                className='flex flex-col items-center'
+            >
+                <DropDown label='Presupuesto Proyecto' name='presupuesto' float='' />
+                <ButtonLoading disabled={false} loading={loading} text='Confirmar' />
+            </form>
+        </div>
+    );
+
+};
+
 
 const Objetivo = ({ tipo, descripcion }) => {
     return (

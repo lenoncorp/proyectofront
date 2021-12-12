@@ -85,7 +85,7 @@ const Inscripcion = ({ inscripcion, refetch }) => {
   };
 
   return (
-    <div className='bg-gray-900 text-gray-50 flex flex-col p-6 m-2 rounded-lg shadow-xl'>
+    <div className='bg-gray-50 text-gray-900 flex flex-col p-6 m-2 rounded-lg shadow-xl'>
       <span>{inscripcion.proyecto.nombre}</span>
       <span>{inscripcion.estudiante.nombre}</span>
       <span>{inscripcion.estado}</span>

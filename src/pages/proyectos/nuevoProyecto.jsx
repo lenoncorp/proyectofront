@@ -11,6 +11,7 @@ import { nanoid } from 'nanoid';
 import { ObjContext } from 'context/objContext';
 import { useObj } from 'context/objContext';
 import { CREAR_PROYECTO } from 'graphql/proyectos/mutations';
+import { useUser} from 'context/userContext';
 
 // comentario
 
@@ -22,7 +23,7 @@ const NuevoProyecto = () => {
             filtro: { rol: 'LIDER', estado: 'AUTORIZADO' },
         },
     });
-
+    const {userData, setuserData} = useUser(); 
     const [crearProyecto, { data: mutationData, loading: mutationLoading, error: mutationError }] =
         useMutation(CREAR_PROYECTO);
 
@@ -68,7 +69,8 @@ const NuevoProyecto = () => {
                 <Input name='presupuesto' label='Presupuesto del Proyecto' required={true} type='number' />
                 <Input name='fechaInicio' label='Fecha de Inicio' required={true} type='date' />
                 <Input name='fechaFin' label='Fecha de Fin' required={true} type='date' />
-                <DropDown label='Líder' options={listaUsuarios} name='lider' required={true} />
+                {/* <DropDown label='Líder' value={useUser.correo} name='lider' required={true} /> */}
+                <Input label= 'lider' defaultValue= {userData._id} name='Lider' required={true} />
                 <Objetivos />
                 <ButtonLoading text='Crear Proyecto' loading={false} disabled={false} />
             </form>
