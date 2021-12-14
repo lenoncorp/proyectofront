@@ -100,22 +100,8 @@ const AccordionProyecto = ({ proyecto }) => {
                                     </div>
                                 </div>
                             </div> : <></>}
-                        {/* Cambia presupuesto */}
-                        <div className='mx-5 my-4 bg-violet-50 p-5 rounded-lg flex justify-center w-80'>
-                            <div className='text-lg font-bold'>
-                                <div> Presupuesto
-                                    <i
-                                        className='mx-4 fas fa-pen text-violet-600 hover:text-violet-400'
-                                        onClick={() => {
-                                            setShowDialogPpto(true);
-                                        }}
-                                    />
-                                </div>
-                            </div>
-                        </div>
-
-
                     </PrivateComponent>
+                    
                     <PrivateComponent roleList={['LIDER']}>
                         {/* Cambia nombre proyecto */}
                         {/* <div className='mx-5 my-4 bg-yellow-50 p-5 rounded-lg flex justify-center w-80'>
@@ -196,7 +182,7 @@ const AccordionProyecto = ({ proyecto }) => {
                     setShowDialogPpto(false);
                 }}
             >
-                <FormEditPptoProyecto _id={proyecto._id} />
+                <FormEditPptoProyecto _id={proyecto._id} presupuesto={proyecto.presupuesto} />
             </Dialog>
         </>
     );
@@ -276,12 +262,13 @@ const FormEditFaseProyecto = ({ _id }) => {
 
 };
 
-const FormEditPptoProyecto = ({ _id }) => {
+const FormEditPptoProyecto = ({ _id, presupuesto }) => {
     const { form, formData, updateFormData } = useFormData();
     const [editarProyecto, { data: dataMutation, loading }] = useMutation(EDITAR_PROYECTO);
 
     const submitForm = (e) => {
         e.preventDefault();
+        formData.presupuesto = parseFloat(formData.presupuesto);
         editarProyecto({
             variables: {
                 _id,
@@ -298,14 +285,14 @@ const FormEditPptoProyecto = ({ _id }) => {
 
     return (
         <div className='p-4'>
-            <h1 className='font-bold'>Modificar Estado del Proyecto</h1>
+            <h1 className='font-bold'>Modificar presupuesto del Proyecto</h1>
             <form
                 ref={form}
                 onChange={updateFormData}
                 onSubmit={submitForm}
                 className='flex flex-col items-center'
             >
-                <DropDown label='Presupuesto del Proyecto' name='presupuesto'  />
+                <Input type='number' defaultValue={presupuesto} label='Presupuesto del Proyecto' name='presupuesto' />
                 <ButtonLoading disabled={false} loading={loading} text='Confirmar' />
             </form>
         </div>
