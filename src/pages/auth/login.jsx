@@ -7,6 +7,7 @@ import { useMutation } from '@apollo/client';
 import { LOGIN } from 'graphql/auth/mutation';
 import { useAuth } from 'context/authContext';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const Login = () => {
     const navigate = useNavigate();
@@ -27,7 +28,8 @@ const Login = () => {
                 setToken(dataMutation.login.token);
                 navigate('/');
             }else{
-                alert ('Este usuario no está registrado')
+                toast.success('No puede ingresar');
+                return ('Inválido');
             }
             
         }

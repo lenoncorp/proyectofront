@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { nanoid } from 'nanoid';
 
-const DropDown = ({ label, name, defaultValue = '', required, options, float}) => {
+const DropDown = ({ label, name, defaultValue = '', required, options}) => {
     const [selectedValue, setSelectedValue] = useState(defaultValue);
     const optionsSelect = [['', 'Seleccione una opción', true], ...Object.entries(options)];
     useEffect(() => {
@@ -16,7 +16,7 @@ const DropDown = ({ label, name, defaultValue = '', required, options, float}) =
                 className='input'
                 value={selectedValue}
                 onChange={(e) => setSelectedValue(e.target.value)}
-                float = {float}
+                
             >
                 {optionsSelect.map((o) => {
                     return (
