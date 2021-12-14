@@ -25,16 +25,16 @@ const IndexInscripciones = () => {
         <div className='my-4'>
           <AccordionInscripcion
             titulo='Inscripciones aprobadas'
-            data= {data.Inscripciones.filter((el) => el.estado === 'ACEPTADO')}
+            data={data.Inscripciones.filter((el) => el.estado === 'ACEPTADO')}
           />
           <AccordionInscripcion
             titulo='Inscripciones pendientes'
-            data= {data.Inscripciones.filter((el) => el.estado === 'PENDIENTE')}
+            data={data.Inscripciones.filter((el) => el.estado === 'PENDIENTE')}
             refetch={refetch}
           />
           <AccordionInscripcion
             titulo='Inscripciones rechazadas'
-            data= {data.Inscripciones.filter((el) => el.estado === 'RECHAZADO')}
+            data={data.Inscripciones.filter((el) => el.estado === 'RECHAZADO')}
           />
         </div>
       </div>
@@ -42,7 +42,7 @@ const IndexInscripciones = () => {
   );
 };
 
-const AccordionInscripcion = ({ data, titulo, refetch = () => {} }) => {
+const AccordionInscripcion = ({ data, titulo, refetch = () => { } }) => {
   return (
     <AccordionStyled>
       <AccordionSummaryStyled>
@@ -53,6 +53,12 @@ const AccordionInscripcion = ({ data, titulo, refetch = () => {} }) => {
           {data &&
             data.map((inscripcion) => {
               return <Inscripcion inscripcion={inscripcion} refetch={refetch} />;
+            })}
+        </div>
+        <div className='flex'>
+          {data &&
+            data.map((inscripcion) => {
+              return <InscripcionRechazada inscripcion={inscripcion} refetch={refetch} />;
             })}
         </div>
       </AccordionDetailsStyled>
@@ -136,7 +142,7 @@ const InscripcionRechazada = ({ inscripcion, refetch }) => {
           loading={loading}
           disabled={false}
         />
-        
+
       )}
     </div>
   );
