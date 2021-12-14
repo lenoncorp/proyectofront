@@ -55,7 +55,7 @@ const EditarPerfil = () => {
 
     return (
         <div className='flew flex-col w-full h-full items-center justify-center p-10'>
-            <Link to='/usuarios'>
+            <Link to='/'>
                 <i className='fas fa-arrow-left text-gray-600 cursor-pointer font-bold text-xl hover:text-gray-900' />
             </Link>
             <h1 className='m-4 text-3xl text-gray-800 font-bold text-center'>Editar Perfil</h1>
@@ -65,50 +65,39 @@ const EditarPerfil = () => {
                 ref={form}
                 className='flex flex-col items-center justify-center'
             >
-                <PrivateComponent roleList={['ESTUDIANTE']}>
+
                 <Input
                     label='Nombre de la persona:'
                     type='text'
                     name='nombre'
-                    defaultValue={queryData.Usuario.nombre}
+                    defaultValue={queryData.UsuarioPerfil.nombre}
                     required={true}
                 />
-                </PrivateComponent>
-                <PrivateComponent roleList={['ESTUDIANTE']}>
                 <Input
                     label='Apellido de la persona:'
                     type='text'
                     name='apellido'
-                    defaultValue={queryData.Usuario.apellido}
+                    defaultValue={queryData.UsuarioPerfil.apellido}
                     required={true}
                 />
-                </PrivateComponent>
-                <PrivateComponent roleList={['ESTUDIANTE']}>
+
                 <Input
                     label='Correo de la persona:'
                     type='email'
                     name='correo'
-                    defaultValue={queryData.Usuario.correo}
+                    defaultValue={queryData.UsuarioPerfil.correo}
                     required={true}
                 />
-                </PrivateComponent>
-                <PrivateComponent roleList={['ESTUDIANTE']}>
+
                 <Input
                     label='Identificación de la persona:'
                     type='text'
                     name='identificacion'
-                    defaultValue={queryData.Usuario.identificacion}
+                    defaultValue={queryData.UsuarioPerfil.identificacion}
                     required={true}
                 />
-                </PrivateComponent>
-                <DropDown
-                    label='Estado de la persona:'
-                    name='estado'
-                    defaultValue={queryData.Usuario.estado}
-                    required={true}
-                    options={Enum_EstadoUsuario}
-                />
-                <span>Rol del usuario: {queryData.Usuario.rol}</span>
+
+                
                 <ButtonLoading
                     disabled={Object.keys(formData).length === 0}
                     loading={mutationLoading}

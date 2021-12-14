@@ -33,9 +33,9 @@ const IndexPerfil = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {data && data.Usuarios ? (
+                    {data && data.UsuarioPerfil ? (
                         <>
-                        {data.Usuarios.map((u) => {
+                        {data.UsuarioPerfil.map((u) => {
                             return (
                                 <tr key={u._id}>
                                     <td>{u.nombre}</td>

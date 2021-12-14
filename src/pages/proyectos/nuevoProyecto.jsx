@@ -11,7 +11,8 @@ import { nanoid } from 'nanoid';
 import { ObjContext } from 'context/objContext';
 import { useObj } from 'context/objContext';
 import { CREAR_PROYECTO } from 'graphql/proyectos/mutations';
-
+import { useUser} from 'context/userContext';
+import { toast } from 'react-toastify';
 const NuevoProyecto = () => {
     const { form, formData, updateFormData } = useFormData();
     const [listaUsuarios, setListaUsuarios] = useState({});
@@ -20,7 +21,7 @@ const NuevoProyecto = () => {
             filtro: { rol: 'LIDER', estado: 'AUTORIZADO' },
         },
     });
-
+    const {userData, setuserData} = useUser(); 
     const [crearProyecto, { data: mutationData, loading: mutationLoading, error: mutationError }] =
         useMutation(CREAR_PROYECTO);
 
@@ -49,6 +50,7 @@ const NuevoProyecto = () => {
         crearProyecto({
             variables: formData,
         });
+        toast.success('Proyecto creado con éxito');  
     };
 
     if (loading) return <div>...Loading</div>;
@@ -66,7 +68,8 @@ const NuevoProyecto = () => {
                 <Input name='presupuesto' label='Presupuesto del Proyecto' required={true} type='number' />
                 <Input name='fechaInicio' label='Fecha de Inicio' required={true} type='date' />
                 <Input name='fechaFin' label='Fecha de Fin' required={true} type='date' />
-                <DropDown label='Líder' options={listaUsuarios} name='lider' required={true} />
+                {/*<DropDown label='Líder' options={listaUsuarios} name='lider' required={true} />*/}
+                <Input label= 'lider' defaultValue= {userData._id} name='Lider' required={true} />
                 <Objetivos />
                 <ButtonLoading text='Crear Proyecto' loading={false} disabled={false} />
             </form>
