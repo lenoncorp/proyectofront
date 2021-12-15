@@ -55,7 +55,7 @@ const IndexAvances = () => {
             
             return (<form ref={form} onChange={updateFormData} onSubmit={submitForm}>
                 <Input type='text' label='Observación' name='observacion' />
-                <ButtonLoading text='Crear Proyecto' loading={false} disabled={false} /></form>)
+                <ButtonLoading text='Añadir Observación' loading={false} disabled={false} /></form>)
         }
     
         const [addObservacion, setAddObservacion] = useState(false);
