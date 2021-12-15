@@ -37,10 +37,14 @@ const IndexAvances = () => {
         return (
             <AccordionStyled>
                 <AccordionSummaryStyled expandIcon={<i className='fas fa-chevron-down' />}>
-                    {avance.descripcion}
+                <div className='uppercase font-bold text-gray-100 '>
+                    {avance.descripcion} - {avance.proyecto.nombre}
+                </div>    
                 </AccordionSummaryStyled>
                 <AccordionDetailsStyled>
-                    {avance.observaciones}
+                
+                    {avance.observaciones.map((observacion)=> <div className='mx-5 my-4 bg-gray-50 p-4 rounded-lg flex flex-col items-center justify-center shadow-xl'><li>{observacion}</li></div>)}
+                
                 </AccordionDetailsStyled>
             </AccordionStyled>
         );
