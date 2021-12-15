@@ -42,7 +42,9 @@ const IndexAvances = () => {
         const FormObservacion = ({ id }) => {
             const { form, formData, updateFormData } = useFormData();
             const [agregarObservacion, { data: mutationData, loading: mutationLoading, error: mutationError }] =
-            useMutation(AGREGAR_OBSERVACION);
+            useMutation(AGREGAR_OBSERVACION,{
+                refetchQueries: [{ query: AVANCES }],
+            });
     
             const submitForm = (e) => {
                 e.preventDefault();
@@ -52,6 +54,7 @@ const IndexAvances = () => {
                 agregarObservacion({ variables: formData });
                 toast.success('Observación añadida con exito');
                 setAddObservacion(false);
+                
             }
             
             return (<form ref={form} onChange={updateFormData} onSubmit={submitForm}>
