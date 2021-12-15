@@ -7,6 +7,7 @@ import PrivateComponent from 'components/PrivateComponent';
 import ButtonLoading from 'components/ButtonLoading';
 import Input from 'components/Input';
 import useFormData from 'hooks/useFormData';
+
 import { AGREGAR_OBSERVACION } from 'graphql/auth/avances/mutations';
 import {
     AccordionStyled,
@@ -69,10 +70,10 @@ const IndexAvances = () => {
                 <AccordionDetailsStyled>
                 <ul className='lista'>
                     {avance.observaciones.map((obs) => <div className='mx-5 my-4 bg-gray-50 p-4 rounded-lg flex flex-col items-center justify-center shadow-xl'><li>{obs}</li></div>)}
-                    <div className='mx-5 my-4 bg-gray-50 p-4 rounded-lg flex flex-col items-center justify-center shadow-xl'><li>Agregar observacion <i
+                   <PrivateComponent roleList={['LIDER']}> <div className='mx-5 my-4 bg-gray-50 p-4 rounded-lg flex flex-col items-center justify-center shadow-xl'><li>Agregar observacion <i
                         onClick={() => { setAddObservacion(!addObservacion) }} /*setListaObjetivos([...listaObjetivos, componenteObjetivoAgregado()])}*/
                         className='fas fa-plus rounded-full bg-green-500 hover:bg-green-400 text-white p-2 mx-2 cursor-pointer'
-                    /></li></div>
+                    /></li></div></PrivateComponent>
                     {addObservacion ? <FormObservacion id={avance._id} /> : <></>}
                 </ul>
                    

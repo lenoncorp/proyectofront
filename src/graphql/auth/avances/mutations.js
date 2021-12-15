@@ -11,4 +11,21 @@ const AGREGAR_OBSERVACION = gql`
         }
     }
 `;
-export {AGREGAR_OBSERVACION};
+const CREAR_AVANCE = gql`
+  mutation Mutation(
+    $fecha: Date!
+    $descripcion: String!
+    $proyecto: String!
+    $creadoPor: String!
+  ) {
+    crearAvance(
+      fecha: $fecha
+      descripcion: $descripcion
+      proyecto: $proyecto
+      creadoPor: $creadoPor
+    ) {
+      _id
+    }
+  }
+`;
+export {AGREGAR_OBSERVACION,CREAR_AVANCE};
