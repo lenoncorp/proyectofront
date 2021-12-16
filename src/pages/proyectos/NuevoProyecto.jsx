@@ -13,6 +13,7 @@ import { useObj } from 'context/objContext';
 import { CREAR_PROYECTO } from 'graphql/proyectos/mutations';
 import { useUser} from 'context/userContext';
 import { toast } from 'react-toastify';
+import { PROYECTOS } from 'graphql/proyectos/queries';
 const NuevoProyecto = () => {
     const { form, formData, updateFormData } = useFormData();
     const [listaUsuarios, setListaUsuarios] = useState({});
@@ -23,7 +24,9 @@ const NuevoProyecto = () => {
     });
     const {userData, setuserData} = useUser(); 
     const [crearProyecto, { data: mutationData, loading: mutationLoading, error: mutationError }] =
-        useMutation(CREAR_PROYECTO);
+        useMutation(CREAR_PROYECTO,{
+            refetchQueries: [{ query: PROYECTOS }],
+        });
 
     useEffect(() => {
         console.log(data);
@@ -39,18 +42,21 @@ const NuevoProyecto = () => {
 
     useEffect(() => {
         console.log('data mutation', mutationData);
-    });
+    },[mutationData]);
 
     const submitForm = (e) => {
         e.preventDefault();
-
-        formData.objetivos = Object.values(formData.objetivos);
+        if (formData.objetivos) {
+            formData.objetivos = Object.values(formData.objetivos);
+        }
         formData.presupuesto = parseFloat(formData.presupuesto);
 
         crearProyecto({
             variables: formData,
         });
-        toast.success('Proyecto creado con éxito');  
+        toast.success('Proyecto creado con éxito');
+
+
     };
 
     if (loading) return <div>...Loading</div>;
@@ -69,7 +75,7 @@ const NuevoProyecto = () => {
                 <Input name='fechaInicio' label='Fecha de Inicio' required={true} type='date' />
                 <Input name='fechaFin' label='Fecha de Fin' required={true} type='date' />
                 {/*<DropDown label='Líder' options={listaUsuarios} name='lider' required={true} />*/}
-                <Input label= 'lider' defaultValue= {userData._id} name='Lider' required={true} />
+                <Input label= 'lider' defaultValue= {userData._id} name='lider' required={true} />
                 <Objetivos />
                 <ButtonLoading text='Crear Proyecto' loading={false} disabled={false} />
             </form>

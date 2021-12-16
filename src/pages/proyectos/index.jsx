@@ -26,7 +26,9 @@ import { EDITAR_OBJETIVO } from 'graphql/proyectos/mutations';
 
 
 const IndexProyectos = () => {
-    const { data: queryData, loading } = useQuery(PROYECTOS);
+    const { data: queryData, loading } = useQuery(PROYECTOS,{
+        refetchQueries: [{ query: PROYECTOS }],
+    });
 
     useEffect(() => {
         console.log('datos proyecto', queryData);
