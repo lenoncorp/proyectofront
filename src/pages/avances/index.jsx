@@ -29,11 +29,16 @@ const IndexAvances = () => {
     if (queryData.Avances) {
 
         return (
+            <div>
+                <button className='bg-green-900 text-gray-50 p-2 rounded-lg shadow-lg hover:bg-indigo-400 '>
+                            <Link to='/avances/nuevo'>Crear Avance</Link>
+                </button>
             <div className='p-10'>
+            
                 {queryData.Avances.map((avance) => {
                     return <AcordionAvance avance={avance} />;
                 })}
-            </div>
+            </div></div>
         );
     }
     return <></>;

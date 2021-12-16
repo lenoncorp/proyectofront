@@ -1,11 +1,18 @@
 import React from 'react'
+import { useQuery, useMutation } from '@apollo/client';
+import { PROYECTOS } from 'graphql/proyectos/queries';
+import DropDown from 'components/Dropdown';
 
-const nuevoAvance = () => {
+const NuevoAvance = () => {
+    const { data: queryData, loading } = useQuery(PROYECTOS,{
+        refetchQueries: [{ query: PROYECTOS }],
+    });
+    console.log(queryData)
     return (
-        <div>
-            pagina para crear avances
-        </div>
+        <form>
+            
+        </form>
     )
 }
 
-export default nuevoAvance
+export default NuevoAvance;
