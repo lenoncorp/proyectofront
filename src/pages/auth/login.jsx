@@ -28,8 +28,9 @@ const Login = () => {
                 setToken(dataMutation.login.token);
                 navigate('/');
             }else{
-                toast.success('No puede ingresar');
-                return ('Inválido');
+                alert('Ingrese un usuario y contraseña válido');
+                // toast.success('No puede ingresar');
+                // return ('Inválido');
             }
             
         }
