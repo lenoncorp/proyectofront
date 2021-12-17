@@ -50,7 +50,9 @@ const NuevoProyecto = () => {
             formData.objetivos = Object.values(formData.objetivos);
         }
         formData.presupuesto = parseFloat(formData.presupuesto);
+        formData.lider = userData._id;
 
+        console.log(formData);
         crearProyecto({
             variables: formData,
         });
@@ -74,8 +76,6 @@ const NuevoProyecto = () => {
                 <Input name='presupuesto' label='Presupuesto del Proyecto' required={true} type='number' />
                 <Input name='fechaInicio' label='Fecha de Inicio' required={true} type='date' />
                 <Input name='fechaFin' label='Fecha de Fin' required={true} type='date' />
-                {/*<DropDown label='Líder' options={listaUsuarios} name='lider' required={true} />*/}
-                <Input label= 'lider' defaultValue= {userData._id} name='lider' required={true} />
                 <Objetivos />
                 <ButtonLoading text='Crear Proyecto' loading={false} disabled={false} />
             </form>

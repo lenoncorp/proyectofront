@@ -20,4 +20,18 @@ const AVANCES = gql`
 
 `;
 
-export { AVANCES };
+const GET_AVANCES = gql`
+    query AvancesEstudiante($project: String) {
+        AvancesEstudiante(project: $project) {
+            _id
+            descripcion
+            fecha
+            observaciones
+            proyecto {
+                nombre
+            }
+        }
+    }
+`;
+
+export { AVANCES, GET_AVANCES };

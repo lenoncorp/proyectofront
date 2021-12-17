@@ -26,7 +26,7 @@ import { EDITAR_OBJETIVO } from 'graphql/proyectos/mutations';
 
 
 const IndexProyectos = () => {
-    const { data: queryData, loading } = useQuery(PROYECTOS,{
+    const { data: queryData, loading } = useQuery(PROYECTOS, {
         refetchQueries: [{ query: PROYECTOS }],
     });
 
@@ -103,7 +103,7 @@ const AccordionProyecto = ({ proyecto }) => {
                                 </div>
                             </div> : <></>}
                     </PrivateComponent>
-                    
+
                     <PrivateComponent roleList={['LIDER']}>
                         {/* Cambia nombre proyecto */}
                         {/* <div className='mx-5 my-4 bg-yellow-50 p-5 rounded-lg flex justify-center w-80'>
@@ -436,8 +436,20 @@ const InscripcionProyecto = ({ idProyecto, estado, inscripciones }) => {
     return (
         <>
             {estadoInscripcion !== '' ? (
-                <span>Ya estas inscrito en este proyecto y el estado es {estadoInscripcion}</span>
-            ) : (
+                <div className='flex flex-col items-start'>
+                    <span>
+                        Ya estas inscrito en este proyecto y el estado es{' '}
+                        {estadoInscripcion}
+                    </span>
+                    {estadoInscripcion === 'ACEPTADO' && (
+                        <Link
+                            to={`/avances/nuevo/${idProyecto}`}
+                            className='bg-pink-600 p-2 rounded-lg text-white my-2 hover:bg-purple-900'
+                        >
+                            Agregar Avance
+                        </Link>
+                    )}
+                </div>) : (
                 <ButtonLoading
                     onClick={() => confirmarInscripcion()}
                     disabled={estado === 'INACTIVO'}
